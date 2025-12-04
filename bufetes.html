@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bufetes y Sedes | YASI K'ARI - Firma Legal en Bolivia</title>
+    <meta name="description" content="Encuentra nuestras sedes en Santa Cruz, La Paz, Cochabamba, Sucre y Trinidad. Bufetes legales con más de 15 años de experiencia.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c5a8a;
+            --accent: #e6a23c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        #map {
+            height: 500px;
+            border-radius: 12px;
+        }
+        
+        .office-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .office-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .office-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(230, 166, 60, 0.2);
+        }
+        
+        .team-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #d18a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .contact-btn {
+            background: linear-gradient(135deg, var(--accent), #d18a1a);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 166, 60, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-display text-2xl font-bold text-slate-800">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="firma.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Nuestra Firma</a>
+                        <a href="especialidades.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Especialidades</a>
+                        <a href="bufetes.html" class="nav-link text-amber-600 px-3 py-2 text-sm font-medium">Bufetes</a>
+                        <a href="abogados.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Abogados</a>
+                        <a href="contacto.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-amber-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Inicio</a>
+                <a href="firma.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Nuestra Firma</a>
+                <a href="especialidades.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Especialidades</a>
+                <a href="bufetes.html" class="block px-3 py-2 text-amber-600">Bufetes</a>
+                <a href="abogados.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Abogados</a>
+                <a href="contacto.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-slate-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h1 class="font-display text-5xl md:text-6xl font-bold text-slate-800 mb-6">
+                    Nuestras <span class="text-amber-600">Sedes</span>
+                </h1>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Presentes en las principales ciudades de Bolivia, brindando servicios legales 
+                    de excelencia con un equipo de abogados especializados en cada región.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Ubicaciones en <span class="text-amber-600">Bolivia</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Haz clic en cualquier marcador para ver información detallada de nuestras oficinas.
+                </p>
+            </div>
+            
+            <div class="reveal">
+                <div id="map" class="w-full shadow-lg"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offices Grid -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestros <span class="text-amber-600">Bufetes</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Cada sede está equipada con las mejores instalaciones y un equipo de abogados especializados.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                
+                <!-- Santa Cruz -->
+                <div class="office-card card-hover p-8 rounded-xl reveal" data-office="santa-cruz">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-2">Santa Cruz</h3>
+                            <p class="text-slate-600">Sede Principal</p>
+                        </div>
+                        <div class="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-building text-orange-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Dirección</p>
+                                <p class="text-slate-600 text-sm">Av. San Martín #455, Edificio Nueva Esperanza, Piso 3</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Teléfono</p>
+                                <p class="text-slate-600 text-sm">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Horario</p>
+                                <p class="text-slate-600 text-sm">Lunes a Viernes: 8:00 - 18:30</p>
+                                <p class="text-slate-600 text-sm">Sábados: 9:00 - 13:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-slate-800 mb-3">Equipo Local</h4>
+                        <div class="flex -space-x-2">
+                            <div class="team-avatar" title="Dr. Carlos Rodríguez">CR</div>
+                            <div class="team-avatar" title="Dra. María González">MG</div>
+                            <div class="team-avatar" title="Dr. Luis Martínez">LM</div>
+                            <div class="team-avatar" title="Dra. Ana Silva">AS</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactOffice('Santa Cruz')" class="contact-btn w-full text-white py-3 rounded-lg font-semibold">
+                        Contactar Esta Sede
+                    </button>
+                </div>
+
+                <!-- La Paz -->
+                <div class="office-card card-hover p-8 rounded-xl reveal" data-office="la-paz">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-2">La Paz</h3>
+                            <p class="text-slate-600">Sede Administrativa</p>
+                        </div>
+                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-balance-scale text-blue-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Dirección</p>
+                                <p class="text-slate-600 text-sm">Calle Comercio #1485, Edificio Las Lilas, Piso 8</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Teléfono</p>
+                                <p class="text-slate-600 text-sm">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Horario</p>
+                                <p class="text-slate-600 text-sm">Lunes a Viernes: 8:30 - 19:00</p>
+                                <p class="text-slate-600 text-sm">Sábados: 9:00 - 14:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-slate-800 mb-3">Equipo Local</h4>
+                        <div class="flex -space-x-2">
+                            <div class="team-avatar" title="Dr. Jorge Mendoza">JM</div>
+                            <div class="team-avatar" title="Dra. Patricia Vargas">PV</div>
+                            <div class="team-avatar" title="Dr. Roberto Castro">RC</div>
+                            <div class="team-avatar" title="Dra. Laura Mendez">LM</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactOffice('La Paz')" class="contact-btn w-full text-white py-3 rounded-lg font-semibold">
+                        Contactar Esta Sede
+                    </button>
+                </div>
+
+                <!-- Cochabamba -->
+                <div class="office-card card-hover p-8 rounded-xl reveal" data-office="cochabamba">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-2">Cochabamba</h3>
+                            <p class="text-slate-600">Sede Comercial</p>
+                        </div>
+                        <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Dirección</p>
+                                <p class="text-slate-600 text-sm">Av. Ballivián #665, Torre Empresarial, Piso 12</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Teléfono</p>
+                                <p class="text-slate-600 text-sm">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Horario</p>
+                                <p class="text-slate-600 text-sm">Lunes a Viernes: 8:00 - 18:00</p>
+                                <p class="text-slate-600 text-sm">Sábados: 9:00 - 13:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-slate-800 mb-3">Equipo Local</h4>
+                        <div class="flex -space-x-2">
+                            <div class="team-avatar" title="Dr. Fernando Torres">FT</div>
+                            <div class="team-avatar" title="Dra. Sandra Rojas">SR</div>
+                            <div class="team-avatar" title="Dr. Miguel Ángel">MA</div>
+                            <div class="team-avatar" title="Dra. Claudia López">CL</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactOffice('Cochabamba')" class="contact-btn w-full text-white py-3 rounded-lg font-semibold">
+                        Contactar Esta Sede
+                    </button>
+                </div>
+
+                <!-- Sucre -->
+                <div class="office-card card-hover p-8 rounded-xl reveal" data-office="sucre">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-2">Sucre</h3>
+                            <p class="text-slate-600">Sede Histórica</p>
+                        </div>
+                        <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-landmark text-purple-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Dirección</p>
+                                <p class="text-slate-600 text-sm">Calle Audiencia #234, Edificio Histórico, Piso 2</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Teléfono</p>
+                                <p class="text-slate-600 text-sm">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Horario</p>
+                                <p class="text-slate-600 text-sm">Lunes a Viernes: 8:30 - 17:30</p>
+                                <p class="text-slate-600 text-sm">Sábados: 9:00 - 13:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-slate-800 mb-3">Equipo Local</h4>
+                        <div class="flex -space-x-2">
+                            <div class="team-avatar" title="Dr. Antonio Rojas">AR</div>
+                            <div class="team-avatar" title="Dra. Elena Paredes">EP</div>
+                            <div class="team-avatar" title="Dr. Carlos Mendoza">CM</div>
+                            <div class="team-avatar" title="Dra. Beatriz Flores">BF</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactOffice('Sucre')" class="contact-btn w-full text-white py-3 rounded-lg font-semibold">
+                        Contactar Esta Sede
+                    </button>
+                </div>
+
+                <!-- Trinidad -->
+                <div class="office-card card-hover p-8 rounded-xl reveal" data-office="trinidad">
+                    <div class="flex items-start justify-between mb-6">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-2">Trinidad</h3>
+                            <p class="text-slate-600">Sede Amazónica</p>
+                        </div>
+                        <div class="w-16 h-16 bg-teal-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-tree text-teal-600 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Dirección</p>
+                                <p class="text-slate-600 text-sm">Av. 6 de Agosto #789, Centro Comercial Beni, Piso 4</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Teléfono</p>
+                                <p class="text-slate-600 text-sm">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-amber-600 mt-1"></i>
+                            <div>
+                                <p class="font-medium text-slate-800">Horario</p>
+                                <p class="text-slate-600 text-sm">Lunes a Viernes: 8:00 - 17:00</p>
+                                <p class="text-slate-600 text-sm">Sábados: 9:00 - 12:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-slate-800 mb-3">Equipo Local</h4>
+                        <div class="flex -space-x-2">
+                            <div class="team-avatar" title="Dr. Diego Vargas">DV</div>
+                            <div class="team-avatar" title="Dra. Isabel Morales">IM</div>
+                            <div class="team-avatar" title="Dr. Ramón Aguilar">RA</div>
+                            <div class="team-avatar" title="Dra. Lucía Fernández">LF</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactOffice('Trinidad')" class="contact-btn w-full text-white py-3 rounded-lg font-semibold">
+                        Contactar Esta Sede
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                    ¿En qué ciudad necesitas asesoría?
+                </h2>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    Contáctanos en la sede más cercana a ti. Nuestros abogados están listos 
+                    para brindarte la mejor asesoría legal en cualquiera de nuestras ubicaciones.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="contacto.html" class="bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-amber-700 transition-colors inline-flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp Directo
+                    </a>
+                    <a href="abogados.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-slate-800 transition-all duration-300">
+                        Ver Abogados por Ciudad
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="font-display text-3xl font-bold mb-4">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Firma legal especializada en Bolivia, comprometida con la excelencia 
+                        y la protección de los derechos de nuestros clientes.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Servicios</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Penal</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Civil</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Familiar</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Laboral</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Sedes</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Santa Cruz</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">La Paz</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Cochabamba</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Sucre</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contacto</h3>
+                    <div class="space-y-3 text-slate-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-amber-600"></i>
+                            <span>lexusyasi@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-whatsapp text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-facebook text-amber-600"></i>
+                            <a href="https://www.facebook.com/people/Yasi-Kari/61571776760855/?mibextid=ZbWKwL" class="hover:text-amber-600 transition-colors">Facebook</a>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-instagram text-amber-600"></i>
+                            <a href="https://www.instagram.com/yasikarilex/" class="hover:text-amber-600 transition-colors">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 YASI K'ARI - Firma Legal Especializada. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Initialize map for offices page
+        document.addEventListener('DOMContentLoaded', function() {
+            initOfficesMap();
+        });
+
+        function initOfficesMap() {
+            const map = L.map('map').setView([-16.2902, -63.5887], 5);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Office data
+            const offices = [
+                {
+                    name: 'Santa Cruz',
+                    coords: [-17.7834, -63.1821],
+                    address: 'Av. San Martín #455, Edificio Nueva Esperanza, Piso 3',
+                    phone: '+591 3 336 2200',
+                    hours: 'L-V: 8:00-18:30, S: 9:00-13:00'
+                },
+                {
+                    name: 'La Paz',
+                    coords: [-16.4897, -68.1193],
+                    address: 'Calle Comercio #1485, Edificio Las Lilas, Piso 8',
+                    phone: '+591 2 245 8900',
+                    hours: 'L-V: 8:30-19:00, S: 9:00-14:00'
+                },
+                {
+                    name: 'Cochabamba',
+                    coords: [-17.4131, -66.1653],
+                    address: 'Av. Ballivián #665, Torre Empresarial, Piso 12',
+                    phone: '+591 4 452 1100',
+                    hours: 'L-V: 8:00-18:00, S: 9:00-13:30'
+                },
+                {
+                    name: 'Sucre',
+                    coords: [-19.0196, -65.2627],
+                    address: 'Calle Audiencia #234, Edificio Histórico, Piso 2',
+                    phone: '+591 4 646 3300',
+                    hours: 'L-V: 8:30-17:30, S: 9:00-13:00'
+                },
+                {
+                    name: 'Trinidad',
+                    coords: [-14.8280, -64.9000],
+                    address: 'Av. 6 de Agosto #789, Centro Comercial Beni, Piso 4',
+                    phone: '+591 3 462 4400',
+                    hours: 'L-V: 8:00-17:00, S: 9:00-12:30'
+                }
+            ];
+            
+            // Custom icons for different cities
+            const icons = {
+                'Santa Cruz': L.divIcon({
+                    className: 'custom-marker-santa-cruz',
+                    html: '<div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">SC</div>',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40]
+                }),
+                'La Paz': L.divIcon({
+                    className: 'custom-marker-la-paz',
+                    html: '<div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">LP</div>',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40]
+                }),
+                'Cochabamba': L.divIcon({
+                    className: 'custom-marker-cochabamba',
+                    html: '<div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">CB</div>',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40]
+                }),
+                'Sucre': L.divIcon({
+                    className: 'custom-marker-sucre',
+                    html: '<div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">SU</div>',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40]
+                }),
+                'Trinidad': L.divIcon({
+                    className: 'custom-marker-trinidad',
+                    html: '<div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">TR</div>',
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40]
+                })
+            };
+            
+            // Add markers
+            offices.forEach(office => {
+                const marker = L.marker(office.coords, { icon: icons[office.name] }).addTo(map);
+                
+                const popupContent = `
+                    <div class="p-3 min-w-64">
+                        <h3 class="font-bold text-slate-800 mb-2 text-lg">${office.name}</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start space-x-2">
+                                <i class="fas fa-map-marker-alt text-amber-600 mt-1"></i>
+                                <span class="text-slate-600">${office.address}</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-phone text-amber-600"></i>
+                                <span class="text-slate-600 font-semibold">${office.phone}</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-clock text-amber-600"></i>
+                                <span class="text-slate-600">${office.hours}</span>
+                            </div>
+                        </div>
+                        <button onclick="contactOffice('${office.name}')" class="mt-3 w-full bg-amber-600 text-white px-3 py-2 rounded text-sm hover:bg-amber-700 transition-colors">
+                            Contactar
+                        </button>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent);
+                
+                // Add click event to highlight office card
+                marker.on('click', function() {
+                    // Remove active class from all cards
+                    document.querySelectorAll('.office-card').forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Add active class to corresponding card
+                    const officeId = office.name.toLowerCase().replace(' ', '-');
+                    const card = document.querySelector(`[data-office="${officeId}"]`);
+                    if (card) {
+                        card.classList.add('active');
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        }
+
+        // Enhanced contact office function
+        function contactOffice(city) {
+            const messages = {
+                'Santa Cruz': 'Hola, me gustaría obtener más información sobre sus servicios legales en la sede de Santa Cruz.',
+                'La Paz': 'Hola, necesito asesoría legal en La Paz. ¿Podrían brindarme más información?',
+                'Cochabamba': 'Hola, estoy interesado en sus servicios legales en Cochabamba.',
+                'Sucre': 'Hola, me gustaría consultar sobre sus servicios en la sede de Sucre.',
+                'Trinidad': 'Hola, necesito información sobre sus servicios legales en Trinidad.'
+            };
+            
+            const message = messages[city] || `Hola, me gustaría obtener más información sobre sus servicios legales en la sede de ${city}.`;
+            const phone = '59167358769'; // WhatsApp actualizado
+            
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>tml>

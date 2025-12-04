@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especialidades Legales | YASI K'ARI - Firma Legal Especializada</title>
+    <meta name="description" content="Especialistas en Derecho Penal, Civil, Familiar, Laboral, Administrativo, Constitucional y Corporativo en Bolivia. Más de 15 años de experiencia.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c5a8a;
+            --accent: #e6a23c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .service-card:hover {
+            border-color: var(--accent);
+        }
+        
+        .price-badge {
+            background: linear-gradient(135deg, var(--accent), #d18a1a);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-display text-2xl font-bold text-slate-800">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="firma.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Nuestra Firma</a>
+                        <a href="especialidades.html" class="nav-link text-amber-600 px-3 py-2 text-sm font-medium">Especialidades</a>
+                        <a href="bufetes.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Bufetes</a>
+                        <a href="abogados.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Abogados</a>
+                        <a href="contacto.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-amber-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Inicio</a>
+                <a href="firma.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Nuestra Firma</a>
+                <a href="especialidades.html" class="block px-3 py-2 text-amber-600">Especialidades</a>
+                <a href="bufetes.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Bufetes</a>
+                <a href="abogados.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Abogados</a>
+                <a href="contacto.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-slate-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h1 class="font-display text-5xl md:text-6xl font-bold text-slate-800 mb-6">
+                    Especialidades <span class="text-amber-600">Legales</span>
+                </h1>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Especialistas en las principales áreas del derecho boliviano, 
+                    brindando soluciones integrales y personalizadas para cada caso.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-8 bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-4">
+                <button class="filter-btn active px-6 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-amber-600 hover:text-white hover:border-amber-600 transition-all duration-300" data-filter="all">
+                    Todos los Servicios
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-amber-600 hover:text-white hover:border-amber-600 transition-all duration-300" data-filter="penal">
+                    Derecho Penal
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-amber-600 hover:text-white hover:border-amber-600 transition-all duration-300" data-filter="civil">
+                    Derecho Civil
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-amber-600 hover:text-white hover:border-amber-600 transition-all duration-300" data-filter="familiar">
+                    Derecho Familiar
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border border-slate-300 text-slate-700 hover:bg-amber-600 hover:text-white hover:border-amber-600 transition-all duration-300" data-filter="laboral">
+                    Derecho Laboral
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Derecho Administrativo -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="administrativo">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-building text-orange-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            1.500 – 3.500 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Administrativo</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Asesoramiento en contratos públicos, licitaciones y gestión de recursos administrativos.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Contratación pública y licitaciones (Ley N° 1178 SAFCO)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Recursos administrativos y apelaciones
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Responsabilidad patrimonial del Estado
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('administrativo')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Constitucional -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="constitucional">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-scroll text-indigo-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            2.500 – 6.000 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Constitucional</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Protección de derechos fundamentales y acciones constitucionales.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Acción de Amparo Constitucional (Art. 128 CPE)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Acción de Inconstitucionalidad (Art. 202 CPE)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Acción Popular (Art. 135 CPE)
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('constitucional')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Penal -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="penal">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-red-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-gavel text-red-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            4.000 – 12.000 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Penal</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Defensa integral en procesos penales y protección de libertades fundamentales.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Defensa en procesos penales (Código Penal Ley N° 1768)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Acción de Libertad (ex Habeas Corpus - Ley N° 254)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Delitos económicos y lavado de dinero (Ley N° 913)
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('penal')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Civil -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="civil">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-balance-scale text-blue-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            1.500 – 3.500 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Civil</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Contratos civiles, protección de bienes y gestión de obligaciones y créditos.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Redacción de contratos civiles (Código Civil Boliviano)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Juicios de reivindicación de propiedad (Art. 430 Código Civil)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Gestión de obligaciones y créditos (Art. 548-560 Código Civil)
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('civil')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Familiar -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="familiar">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-users text-green-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            2.000 – 7.000 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Familiar</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Procesos de divorcio, custodia, régimen de visitas y pensiones alimenticias.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Divorcio mutuo acuerdo y controversia (Ley N° 603)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Régimen de visitas y custodia (Código de las Familias Art. 162)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Alimentos fijación y modificación (Ley N° 548)
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('familiar')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Laboral -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="laboral">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-briefcase text-purple-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            2.500 – 6.000 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Laboral</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Defensa en conflictos laborales, accidentes de trabajo y negociación colectiva.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Reclamo por despido injustificado (Ley General del Trabajo Art. 55)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Accidentes laborales e indemnizaciones (Ley N° 530)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Negociación colectiva (Art. 102-110 LGT)
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('laboral')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+                <!-- Derecho Corporativo -->
+                <div class="service-card card-hover p-8 rounded-xl reveal" data-category="corporativo">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-chart-line text-pink-600 text-2xl"></i>
+                        </div>
+                        <div class="price-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            3.000 – 12.000 Bs
+                        </div>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Derecho Corporativo</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Constitución de sociedades, protección de marcas y contratos comerciales.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Constitución de sociedades comerciales (Ley N° 1604)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Protección de marcas ante SENAPI (Ley N° 1322)
+                        </div>
+                        <div class="flex items-center text-sm text-slate-600">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            Contratos comerciales y joint ventures
+                        </div>
+                    </div>
+                    <button class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors" onclick="openModal('corporativo')">
+                        Solicitar Información
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                    ¿Necesitas Asesoría Especializada?
+                </h2>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    Contáctanos para una evaluación inicial gratuita de tu caso. 
+                    Nuestros expertos están listos para ayudarte.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="contacto.html" class="bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-amber-700 transition-colors inline-flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i>
+                        Consulta Gratuita
+                    </a>
+                    <a href="abogados.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-slate-800 transition-all duration-300">
+                        Ver Abogados Especializados
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="font-display text-3xl font-bold mb-4">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Firma legal especializada en Bolivia, comprometida con la excelencia 
+                        y la protección de los derechos de nuestros clientes.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Servicios</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Derecho Penal</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Derecho Civil</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Derecho Familiar</a></li>
+                        <li><a href="#" class="hover:text-amber-600 transition-colors">Derecho Laboral</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Sedes</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Santa Cruz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">La Paz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Cochabamba</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Sucre</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contacto</h3>
+                    <div class="space-y-3 text-slate-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-amber-600"></i>
+                            <span>lexusyasi@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-whatsapp text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-facebook text-amber-600"></i>
+                            <a href="https://www.facebook.com/people/Yasi-Kari/61571776760855/?mibextid=ZbWKwL" class="hover:text-amber-600 transition-colors">Facebook</a>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-instagram text-amber-600"></i>
+                            <a href="https://www.instagram.com/yasikarilex/" class="hover:text-amber-600 transition-colors">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 YASI K'ARI - Firma Legal Especializada. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <h3 id="modal-title" class="font-display text-2xl font-semibold text-slate-800"></h3>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div id="modal-content" class="space-y-4"></div>
+                <form id="consultation-form" class="mt-6 space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Nombre completo</label>
+                            <input type="text" name="name" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Teléfono</label>
+                            <input type="tel" name="phone" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                        <input type="email" name="email" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Descripción del caso</label>
+                        <textarea name="message" rows="4" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                        Solicitar Consulta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Service modal data
+        const serviceData = {
+            administrativo: {
+                title: 'Derecho Administrativo',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            El derecho administrativo regula las relaciones entre los ciudadanos y la administración pública. 
+                            Nuestro equipo especializado brinda asesoramiento integral en:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Contratación Pública:</strong> Asesoramiento en licitaciones y contratos estatales según la Ley N° 1178 SAFCO</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Recursos Administrativos:</strong> Gestión de apelaciones, reposiciones y recursos contra actos administrativos</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Responsabilidad Patrimonial:</strong> Reclamaciones por daños causados por la administración pública</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">1.500 - 8.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            constitucional: {
+                title: 'Derecho Constitucional',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Protegemos los derechos fundamentales consagrados en la Constitución Política del Estado:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Acción de Amparo:</strong> Tutela de derechos fundamentales vulnerados (Art. 128 CPE)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Acción de Inconstitucionalidad:</strong> Impugnación de normas anticonstitucionales (Art. 202 CPE)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Acción Popular:</strong> Defensa de intereses colectivos y difusos (Art. 135 CPE)</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">2.500 - 10.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            penal: {
+                title: 'Derecho Penal',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Defensa integral en materia penal, protegiendo los derechos y libertades de nuestros clientes:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Procesos Penales:</strong> Defensa en todos los tipos de delitos (Código Penal Ley N° 1768)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Acción de Libertad:</strong> Protección contra detenciones ilegales (Ley N° 254)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Delitos Económicos:</strong> Casos de lavado de dinero y delitos financieros (Ley N° 913)</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">4.000 - 15.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            civil: {
+                title: 'Derecho Civil',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Asesoramiento integral en todas las materias del derecho civil boliviano:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Contratos Civiles:</strong> Redacción y revisión de contratos según el Código Civil Boliviano</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Reivindicación de Propiedad:</strong> Recuperación de bienes muebles e inmuebles (Art. 430 Código Civil)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Obligaciones y Créditos:</strong> Gestión de cobranzas judiciales (Art. 548-560 Código Civil)</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">1.500 - 7.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            familiar: {
+                title: 'Derecho Familiar',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Acompañamiento legal en los procesos más sensibles de la vida familiar:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Divorcio:</strong> Procesos de mutuo acuerdo y contenciosos (Ley N° 603)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Custodia y Visitas:</strong> Régimen de visitas y custodia de menores (Código de las Familias Art. 162)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Pensiones Alimenticias:</strong> Fijación y modificación de alimentos (Ley N° 548)</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">2.000 - 7.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            laboral: {
+                title: 'Derecho Laboral',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Defensa de los derechos laborales y gestión de conflictos en el ámbito laboral:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Despido Injustificado:</strong> Reclamos y defensa según la Ley General del Trabajo (Art. 55)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Accidentes Laborales:</strong> Indemnizaciones por riesgos profesionales (Ley N° 530)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Negociación Colectiva:</strong> Acuerdos sindicales y conflictos colectivos (Art. 102-110 LGT)</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">2.500 - 9.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            },
+            corporativo: {
+                title: 'Derecho Corporativo',
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            Asesoramiento integral en derecho societario y comercial para empresas:
+                        </p>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Constitución de Sociedades:</strong> Trámites y asesoramiento según la Ley N° 1604</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Protección de Marcas:</strong> Registro y defensa de marcas ante SENAPI (Ley N° 1322)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span><strong>Contratos Comerciales:</strong> Joint ventures y acuerdos empresariales</span>
+                            </li>
+                        </ul>
+                        <div class="bg-amber-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-amber-800 mb-2">Rango de Precios:</h4>
+                            <p class="text-amber-700 text-sm">3.000 - 12.000 Bs (según complejidad del caso)</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const serviceCards = document.querySelectorAll('.service-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter cards
+                    serviceCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            anime({
+                                targets: card,
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                duration: 500,
+                                easing: 'easeOutQuad'
+                            });
+                        } else {
+                            anime({
+                                targets: card,
+                                opacity: [1, 0],
+                                translateY: [0, -30],
+                                duration: 300,
+                                easing: 'easeOutQuad',
+                                complete: function() {
+                                    card.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+
+        // Modal functionality
+        function openModal(serviceType) {
+            const modal = document.getElementById('service-modal');
+            const title = document.getElementById('modal-title');
+            const content = document.getElementById('modal-content');
+            
+            const service = serviceData[serviceType];
+            if (service) {
+                title.textContent = service.title;
+                content.innerHTML = service.content;
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('service-modal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('service-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submission
+        document.getElementById('consultation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Crear mensaje personalizado para WhatsApp
+            const message = `Hola, soy ${data.name}. He visto sus servicios en YASI K'ARI y necesito asesoría en ${data.specialty || 'derecho'}. Mi caso: ${data.message}. ¿Podrían atenderme?`;
+            const phone = '59167358769';
+            
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            
+            closeModal();
+            this.reset();
+        });
+    </sc

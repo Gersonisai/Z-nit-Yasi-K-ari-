@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Firma | YASI K'ARI - Historia, Misión y Valores</title>
+    <meta name="description" content="Conoce la historia, misión, visión y valores de YASI K'ARI. Más de 15 años de experiencia brindando excelencia en servicios legales en Bolivia.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c5a8a;
+            --accent: #e6a23c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), #d18a1a);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 1rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .value-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent), #d18a1a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-item::before {
+                left: 2rem;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 4rem);
+                margin-left: 4rem !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-display text-2xl font-bold text-slate-800">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="firma.html" class="nav-link text-amber-600 px-3 py-2 text-sm font-medium">Nuestra Firma</a>
+                        <a href="especialidades.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Especialidades</a>
+                        <a href="bufetes.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Bufetes</a>
+                        <a href="abogados.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Abogados</a>
+                        <a href="contacto.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-amber-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Inicio</a>
+                <a href="firma.html" class="block px-3 py-2 text-amber-600">Nuestra Firma</a>
+                <a href="especialidades.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Especialidades</a>
+                <a href="bufetes.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Bufetes</a>
+                <a href="abogados.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Abogados</a>
+                <a href="contacto.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-slate-50 to-amber-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center reveal">
+                <h1 class="font-display text-5xl md:text-6xl font-bold text-slate-800 mb-6">
+                    Nuestra <span class="text-amber-600">Firma</span>
+                </h1>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Con más de 15 años de experiencia, YASI K'ARI se ha consolidado como una de las firmas 
+                    legales más respetadas de Bolivia, comprometida con la excelencia y la justicia.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-8">
+                        Misión y <span class="text-amber-600">Visión</span>
+                    </h2>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">
+                                <i class="fas fa-bullseye text-amber-600 mr-3"></i>
+                                Nuestra Misión
+                            </h3>
+                            <p class="text-slate-600 leading-relaxed text-lg">
+                                Proteger los derechos y fortalecer los intereses de nuestros clientes mediante 
+                                asesoría legal integral, ética y personalizada, respaldada por años de experiencia 
+                                y un compromiso inquebrantable con la excelencia profesional.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">
+                                <i class="fas fa-eye text-amber-600 mr-3"></i>
+                                Nuestra Visión
+                            </h3>
+                            <p class="text-slate-600 leading-relaxed text-lg">
+                                Ser reconocidos como la firma legal líder en Bolivia, destacándonos por nuestra 
+                                excelencia en el servicio, innovación en la práctica del derecho y contribución 
+                                al fortalecimiento del estado de derecho en el país.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal">
+                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-xl">
+                        <div class="text-center mb-8">
+                            <div class="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-scale-balanced text-amber-600 text-3xl"></i>
+                            </div>
+                            <h3 class="font-display text-2xl font-semibold text-slate-800">Compromiso con la Excelencia</h3>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 text-center">
+                            <div>
+                                <div class="stat-number">15+</div>
+                                <p class="text-slate-600 font-medium">Años de Experiencia</p>
+                            </div>
+                            <div>
+                                <div class="stat-number">500+</div>
+                                <p class="text-slate-600 font-medium">Casos Resueltos</p>
+                            </div>
+                            <div>
+                                <div class="stat-number">95%</div>
+                                <p class="text-slate-600 font-medium">Tasa de Éxito</p>
+                            </div>
+                            <div>
+                                <div class="stat-number">5</div>
+                                <p class="text-slate-600 font-medium">Sedes en Bolivia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestros <span class="text-amber-600">Valores</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Los principios que guían cada aspecto de nuestro trabajo y nuestra relación con los clientes.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="value-card card-hover p-8 rounded-xl text-center reveal">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-4">Integridad</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Actuamos con honestidad y transparencia en todas nuestras relaciones, 
+                        manteniendo los más altos estándares éticos en la práctica del derecho.
+                    </p>
+                </div>
+                
+                <div class="value-card card-hover p-8 rounded-xl text-center reveal">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-4">Compromiso</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Nos dedicamos completamente a cada caso, brindando atención personalizada 
+                        y trabajando incansablemente por los intereses de nuestros clientes.
+                    </p>
+                </div>
+                
+                <div class="value-card card-hover p-8 rounded-xl text-center reveal">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lightbulb text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-4">Excelencia</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Buscamos constantemente la mejora y la innovación en nuestros servicios, 
+                        manteniéndonos a la vanguardia del derecho boliviano.
+                    </p>
+                </div>
+                
+                <div class="value-card card-hover p-8 rounded-xl text-center reveal">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-4">Confidencialidad</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Protegemos rigurosamente la información de nuestros clientes, 
+                        manteniendo el más absoluto secreto profesional en todas las consultas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Timeline -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestra <span class="text-amber-600">Historia</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Un recorrido por los momentos más importantes de nuestra trayectoria.
+                </p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2008</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Fundación de YASI K'ARI</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Iniciamos nuestras operaciones en Santa Cruz con un pequeño equipo de abogados especializados 
+                            en derecho penal y civil, con el objetivo de brindar servicios legales de alta calidad.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2012</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Expansión a La Paz</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Abrimos nuestra segunda sede en La Paz, ampliando nuestros servicios a la región occidental 
+                            del país y consolidando nuestra presencia en el mercado legal boliviano.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2015</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Especialización Completa</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Incorporamos especialistas en todas las áreas del derecho: penal, civil, familiar, laboral, 
+                            administrativo, constitucional y corporativo, convirtiéndonos en una firma de servicios integrales.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2018</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Expansión Nacional</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Abrimos sedes en Cochabamba, Sucre y Trinidad, completando nuestra cobertura nacional 
+                            y convirtiéndonos en una de las firmas con mayor presencia territorial en Bolivia.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2022</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Reconocimiento Nacional</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Recibimos el reconocimiento como "Firma Legal del Año" por la Cámara Nacional de Comercio, 
+                            consolidando nuestra posición como líderes en el sector legal boliviano.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold">2024</span>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Innovación y Futuro</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Implementamos tecnología de vanguardia en nuestros procesos legales y lanzamos nuestra 
+                            plataforma digital para mejorar la experiencia de nuestros clientes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Leadership -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Liderazgo <span class="text-amber-600">Ejecutivo</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Conoce al equipo directivo que lidera nuestra firma hacia el futuro.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white p-8 rounded-xl text-center reveal">
+                    <div class="w-24 h-24 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">DR</span>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-2">Dr. Diego Rodríguez</h3>
+                    <p class="text-amber-600 font-medium mb-4">Socio Fundador & Director Ejecutivo</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Abogado con más de 20 años de experiencia en derecho penal y civil. 
+                        Lidera la estrategia y visión de la firma desde su fundación.
+                    </p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl text-center reveal">
+                    <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">MG</span>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-2">Dra. María González</h3>
+                    <p class="text-amber-600 font-medium mb-4">Directora de Operaciones</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Especialista en derecho civil y gestión de firmas legales. 
+                        Responsable de la excelencia operativa y calidad del servicio.
+                    </p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl text-center reveal">
+                    <div class="w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">CM</span>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-2">Dr. Carlos Mendoza</h3>
+                    <p class="text-amber-600 font-medium mb-4">Director de Desarrollo de Negocios</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        Experto en derecho corporativo y estrategia empresarial. 
+                        Lidera el crecimiento y expansión de la firma.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                    ¿Listo para trabajar juntos?
+                </h2>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    Contáctanos hoy y descubre cómo podemos ayudarte a proteger tus derechos 
+                    y fortalecer tus intereses con la excelencia que nos caracteriza.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="contacto.html" class="bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-amber-700 transition-colors inline-flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i>
+                        Consulta Gratuita
+                    </a>
+                    <a href="especialidades.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-slate-800 transition-all duration-300">
+                        Nuestros Servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="font-display text-3xl font-bold mb-4">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Firma legal especializada en Bolivia, comprometida con la excelencia 
+                        y la protección de los derechos de nuestros clientes.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Servicios</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Penal</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Civil</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Familiar</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Laboral</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Sedes</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Santa Cruz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">La Paz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Cochabamba</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Sucre</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contacto</h3>
+                    <div class="space-y-3 text-slate-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-amber-600"></i>
+                            <span>lexusyasi@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-whatsapp text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-facebook text-amber-600"></i>
+                            <a href="https://www.facebook.com/people/Yasi-Kari/61571776760855/?mibextid=ZbWKwL" class="hover:text-amber-600 transition-colors">Facebook</a>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-instagram text-amber-600"></i>
+                            <a href="https://www.instagram.com/yasikarilex/" class="hover:text-amber-600 transition-colors">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 YASI K'ARI - Firma Legal Especializada. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

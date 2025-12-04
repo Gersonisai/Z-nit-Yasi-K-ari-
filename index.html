@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YASI K'ARI | Firma Legal Especializada en Bolivia</title>
+    <meta name="description" content="YASI K'ARI es una firma legal especializada en Derecho Penal, Civil, Familiar, Laboral, Administrativo, Constitucional y Corporativo en Bolivia.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Splide CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a3a5f;
+            --secondary: #2c5a8a;
+            --accent: #e6a23c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(26, 58, 95, 0.9), rgba(44, 90, 138, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23a)"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--accent), #f4d03f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #d18a1a);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 166, 60, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        #map {
+            height: 400px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="font-display text-2xl font-bold text-slate-800">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#inicio" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="firma.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Nuestra Firma</a>
+                        <a href="especialidades.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Especialidades</a>
+                        <a href="bufetes.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Bufetes</a>
+                        <a href="abogados.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Abogados</a>
+                        <a href="contacto.html" class="nav-link text-slate-700 hover:text-amber-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-amber-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#inicio" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Inicio</a>
+                <a href="firma.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Nuestra Firma</a>
+                <a href="especialidades.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Especialidades</a>
+                <a href="bufetes.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Bufetes</a>
+                <a href="abogados.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Abogados</a>
+                <a href="contacto.html" class="block px-3 py-2 text-slate-700 hover:text-amber-600">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-bg min-h-screen flex items-center justify-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6">
+                    <span class="block">Excelencia en</span>
+                    <span class="block text-gradient" id="typed-text"></span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+                    Más de 15 años de experiencia brindando asesoría legal integral en Bolivia. 
+                    Especialistas en derecho penal, civil, familiar, laboral, administrativo, constitucional y corporativo.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="https://wa.me/59167358769" class="btn-primary text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i>
+                        Consulta Gratuita
+                    </a>
+                    <a href="especialidades.html" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-slate-800 transition-all duration-300">
+                        Especialidades Legales
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestra <span class="text-amber-600">Misión</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    Protegemos tus derechos y fortalecemos tu negocio con asesoría legal integral, 
+                    ética y personalizada, respaldada por años de experiencia y excelencia profesional.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center reveal card-hover bg-slate-50 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-amber-600"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Protección Legal</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Defendemos tus intereses con estrategias legales sólidas y personalizadas, 
+                        garantizando la mejor protección en cada caso.
+                    </p>
+                </div>
+                
+                <div class="text-center reveal card-hover bg-slate-50 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-2xl text-amber-600"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Asesoría Integral</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Acompañamiento completo en todas las etapas del proceso legal, 
+                        desde la consulta inicial hasta la resolución final.
+                    </p>
+                </div>
+                
+                <div class="text-center reveal card-hover bg-slate-50 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-trophy text-2xl text-amber-600"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-semibold text-slate-800 mb-4">Excelencia</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Compromiso con la calidad y resultados excepcionales, 
+                        respaldados por años de experiencia y casos exitosos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties Grid -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestras <span class="text-amber-600">Especialidades</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Especialistas en las principales áreas del derecho boliviano, 
+                    brindando soluciones integrales y personalizadas.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-gavel text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Penal</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Defensa en procesos penales, acciones de libertad y delitos económicos.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 4.000 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-balance-scale text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Civil</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Contratos civiles, reivindicación de propiedad y gestión de obligaciones.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 1.500 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Familiar</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Divorcio, régimen de visitas, custodia y alimentos.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 2.000 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-briefcase text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Laboral</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Despido injustificado, accidentes laborales y negociación colectiva.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 2.500 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-building text-orange-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Administrativo</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Contratos públicos, recursos administrativos y responsabilidad patrimonial.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 1.500 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-scroll text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Constitucional</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Acción de amparo, inconstitucionalidad y acción popular.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 2.500 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-pink-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Derecho Corporativo</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Constitución de sociedades, protección de marcas y contratos comerciales.
+                    </p>
+                    <div class="text-amber-600 font-semibold text-sm">
+                        Desde 3.000 Bs
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-6 rounded-xl shadow-lg reveal flex items-center justify-center">
+                    <a href="especialidades.html" class="text-center">
+                        <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-plus text-amber-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-slate-800 mb-3">Ver Especialidades</h3>
+                        <p class="text-slate-600 text-sm">
+                            Explora todos nuestros servicios legales
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                    Nuestras <span class="text-amber-600">Sedes</span>
+                </h2>
+                <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                    Presentes en las principales ciudades de Bolivia, 
+                    brindando servicios legales de excelencia.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div id="map" class="w-full"></div>
+                </div>
+                
+                <div class="reveal">
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-1">Santa Cruz</h3>
+                                <p class="text-slate-600 text-sm">Av. San Martín #455, Edificio Nueva Esperanza, Piso 3</p>
+                                <p class="text-amber-600 font-medium text-sm mt-1">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-1">La Paz</h3>
+                                <p class="text-slate-600 text-sm">Calle Comercio #1485, Edificio Las Lilas, Piso 8</p>
+                                <p class="text-amber-600 font-medium text-sm mt-1">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-1">Cochabamba</h3>
+                                <p class="text-slate-600 text-sm">Av. Ballivián #665, Torre Empresarial, Piso 12</p>
+                                <p class="text-amber-600 font-medium text-sm mt-1">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-1">Sucre</h3>
+                                <p class="text-slate-600 text-sm">Calle Audiencia #234, Edificio Histórico, Piso 2</p>
+                                <p class="text-amber-600 font-medium text-sm mt-1">+591 67358769</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-800 mb-1">Trinidad</h3>
+                                <p class="text-slate-600 text-sm">Av. 6 de Agosto #789, Centro Comercial Beni, Piso 4</p>
+                                <p class="text-amber-600 font-medium text-sm mt-1">+591 67358769</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-3xl mx-auto reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">
+                    ¿Necesitas Asesoría Legal?
+                </h2>
+                <p class="text-xl text-white/90 mb-8 leading-relaxed">
+                    Contáctanos hoy para una consulta inicial gratuita. 
+                    Nuestro equipo de expertos está listo para ayudarte.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="https://wa.me/59167358769" class="btn-primary text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp Directo
+                    </a>
+                    <a href="tel:+59167358769" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-slate-800 transition-all duration-300 inline-flex items-center gap-2">
+                        <i class="fas fa-phone"></i>
+                        Llamar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="font-display text-3xl font-bold mb-4">
+                        YASI <span class="text-amber-600">K'ARI</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Firma legal especializada en Bolivia, comprometida con la excelencia 
+                        y la protección de los derechos de nuestros clientes.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Servicios</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Penal</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Civil</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Familiar</a></li>
+                        <li><a href="especialidades.html" class="hover:text-amber-600 transition-colors">Derecho Laboral</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Sedes</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Santa Cruz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">La Paz</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Cochabamba</a></li>
+                        <li><a href="bufetes.html" class="hover:text-amber-600 transition-colors">Sucre</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contacto</h3>
+                    <div class="space-y-3 text-slate-400 text-sm">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-phone text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-amber-600"></i>
+                            <span>lexusyasi@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-whatsapp text-amber-600"></i>
+                            <span>+591 67358769</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-facebook text-amber-600"></i>
+                            <a href="https://www.facebook.com/people/Yasi-Kari/61571776760855/?mibextid=ZbWKwL" class="hover:text-amber-600 transition-colors">Facebook</a>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fab fa-instagram text-amber-600"></i>
+                            <a href="https://www.instagram.com/yasikarilex/" class="hover:text-amber-600 transition-colors">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center">
+                <p class="text-slate-400 text-sm">
+                    © 2024 YASI K'ARI - Firma Legal Especializada. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="main.js"></script>
+</bod
